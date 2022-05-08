@@ -4,13 +4,18 @@ using StudentNotes.Core.Entities.Identity;
 
 namespace StudentNotes.Core.Entities.Notes
 {
-    public class NoteBase
+    public class NoteBase : EntityBase
     {
-        int Id { get; set; }
-        Type Type { get; set; }
-        DateTime DeadLine { get; set; }
-        Subject Subject { get; set; }
-        List<User> UsersCompleted { get; set; }
-        User Author { get; set; }
+        public int Id { get; set; }
+        
+        public Type Type { get; set; }
+        
+        public DateTime DeadLine { get; set; }
+        
+        public Subject Subject { get; set; }
+        
+        public List<User> UsersCompleted { get; set; }
+        
+        public User Author { get; set; }
     }
 }

@@ -2,15 +2,22 @@
 
 namespace StudentNotes.Core.Entities.Identity
 {
-    public class User
+    public class User : EntityBase
     {
-        int Id { get; set; }
-        string Name { get; set; }
-        string Email { get; set; }
-        string PasswordHash { get; set; }
-        UserToken UserToken { get; set; }
-        string Avatar { get; set; }
-        Group Group { get; set; }
-        List<Role> Roles { get; set; }
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+        
+        public string Email { get; set; }
+        
+        public string PasswordHash { get; set; }
+        
+        public UserToken UserToken { get; set; }
+        
+        public string Avatar { get; set; }
+        
+        public Group Group { get; set; }
+        
+        public List<Role> Roles { get; set; }
     }
 }

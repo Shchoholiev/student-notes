@@ -2,12 +2,16 @@
 
 namespace StudentNotes.Core.Entities
 {
-    public class Teacher
+    public class Teacher : EntityBase
     {
-        int Id { get; set; }
-        string Name { get; set; }
-        string Email { get; set; }
-        string Avatar { get; set; }
-        List<Subject> Subjects { get; set; }
+        public int Id { get; set; }
+        
+        public string Name { get; set; }
+        
+        public string Email { get; set; }
+        
+        public string Avatar { get; set; }
+        
+        public List<Subject> Subjects { get; set; }
     }
 }

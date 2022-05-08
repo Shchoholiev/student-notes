@@ -2,10 +2,11 @@
 
 namespace StudentNotes.Core.Entities.Identity
 {
-    public class UserToken
+    public class UserToken : EntityBase
     {
-        string Token { get; set; }
-        DateTime TokenExpiryTime { get; set; }
+        public string Token { get; set; }
+
+        public DateTime TokenExpiryTime { get; set; }
     }
 }
 

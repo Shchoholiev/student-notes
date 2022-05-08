@@ -2,8 +2,8 @@
 
 namespace StudentNotes.Core.Entities.Notes
 {
-    public class FileNote
+    public class FileNote : EntityBase
     {
-        List<File> Files { get; set; }
+        public List<File> Files { get; set; }
     }
 }

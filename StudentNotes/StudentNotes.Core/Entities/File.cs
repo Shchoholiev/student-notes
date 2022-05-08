@@ -2,10 +2,12 @@
 
 namespace StudentNotes.Core.Entities
 {
-    public class File
+    public class File : EntityBase
     {
-        int Id { get; set; }
-        string Link { get; set; }
-        string Name { get; set; }
+        public int Id { get; set; }
+        
+        public string Link { get; set; }
+        
+        public string Name { get; set; }
     }
 }
