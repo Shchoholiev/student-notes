@@ -4,8 +4,6 @@ namespace StudentNotes.Core.Entities
 {
     public class Teacher : EntityBase
     {
-        public int Id { get; set; }
-        
         public string Name { get; set; }
         
         public string Email { get; set; }

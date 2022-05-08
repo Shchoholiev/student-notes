@@ -8,8 +8,6 @@ namespace StudentNotes.Core.Entities
     {
         public List<User> Users { get; set; }
         
-        public int Id { get; set; }
-        
         public string Name { get; set; }
         
         public User Headman { get; set; }

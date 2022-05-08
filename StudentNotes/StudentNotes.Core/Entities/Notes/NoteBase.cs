@@ -6,8 +6,6 @@ namespace StudentNotes.Core.Entities.Notes
 {
     public class NoteBase : EntityBase
     {
-        public int Id { get; set; }
-        
         public Type Type { get; set; }
         
         public DateTime DeadLine { get; set; }
