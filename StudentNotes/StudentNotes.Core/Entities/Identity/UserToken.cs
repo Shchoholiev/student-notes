@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace StudentNotes.Core.Entities.Identity
+﻿namespace StudentNotes.Core.Entities.Identity
 {
     public class UserToken : EntityBase
     {
-        public string Token { get; set; }
+        public string RefreshToken { get; set; }
 
-        public DateTime TokenExpiryTime { get; set; }
+        public DateTime RefreshTokenExpiryTime { get; set; }
     }
 }
 

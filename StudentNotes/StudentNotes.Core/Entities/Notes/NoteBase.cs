@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using StudentNotes.Core.Entities.Identity;
+﻿using StudentNotes.Core.Entities.Identity;
 
 namespace StudentNotes.Core.Entities.Notes
 {
@@ -11,9 +9,9 @@ namespace StudentNotes.Core.Entities.Notes
         public DateTime DeadLine { get; set; }
         
         public Subject Subject { get; set; }
-        
-        public List<User> UsersCompleted { get; set; }
-        
+                
         public User Author { get; set; }
+
+        public List<User> UsersCompleted { get; set; }
     }
 }

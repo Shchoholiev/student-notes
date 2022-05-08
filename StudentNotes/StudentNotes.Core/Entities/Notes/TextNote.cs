@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace StudentNotes.Core.Entities.Notes
+﻿namespace StudentNotes.Core.Entities.Notes
 {
     public class TextNote : EntityBase
     {

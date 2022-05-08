@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace StudentNotes.Core.Entities
+﻿namespace StudentNotes.Core.Entities
 {
     public class Teacher : EntityBase
     {
