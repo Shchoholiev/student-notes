@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StudentNotes.Application\StudentNotes.Application.csproj" />
+    <ProjectReference Include="..\StudentNotes.Core\StudentNotes.Core.csproj" />
+  </ItemGroup>
+
+</Project>
