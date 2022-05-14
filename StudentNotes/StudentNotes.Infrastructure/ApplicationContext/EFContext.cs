@@ -5,12 +5,11 @@ using StudentNotes.Core.Entities.Notes;
 
 namespace StudentNotes.Infrastructure.ApplicationContext
 {
-    public class EFContext
+    public class EFContext : DbContext
     {
-
-        public EFContext()
+        public EFContext(string connection)
         {
-
+            connectionString = connection;
         }
 
         public DbSet<User> Users { get; set; }
@@ -25,7 +24,7 @@ namespace StudentNotes.Infrastructure.ApplicationContext
 
         public DbSet<NoteBase> NoteBases { get; set; }
 
-        public DbSet<Type> Types { get; set; }
+        public DbSet<Core.Entities.Type> Types { get; set; }
 
         public DbSet<Teacher> Teachers { get; set; }
 
@@ -33,6 +32,13 @@ namespace StudentNotes.Infrastructure.ApplicationContext
 
         public DbSet<Group> Groups { get; set; }
 
-        public DbSet<File> Files { get; set; }
+        public DbSet<Core.Entities.File> Files { get; set; }
+
+        string connectionString;
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(connectionString);
+        }
     }
 }
