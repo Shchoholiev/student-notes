@@ -9,7 +9,7 @@ namespace StudentNotes.Infrastructure.ApplicationContext
     {
         public EFContext(string connection)
         {
-            connectionString = connection;
+           
         }
 
         public DbSet<User> Users { get; set; }
@@ -38,7 +38,7 @@ namespace StudentNotes.Infrastructure.ApplicationContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=StudentNotes;Trusted_Connection=True;");
         }
     }
 }
