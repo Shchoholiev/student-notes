@@ -7,7 +7,7 @@ namespace StudentNotes.Infrastructure.ApplicationContext
 {
     public class EFContext : DbContext
     {
-        public EFContext(string connection)
+        public EFContext()
         {
            
         }
@@ -33,8 +33,6 @@ namespace StudentNotes.Infrastructure.ApplicationContext
         public DbSet<Group> Groups { get; set; }
 
         public DbSet<Core.Entities.File> Files { get; set; }
-
-        string connectionString;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
