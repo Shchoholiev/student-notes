@@ -16,56 +16,54 @@ namespace StudentNotes.Infrastructure.Services
         // pass: bla-bla-bla#01
         public string connectionStr = "Server=tcp:vika-server.database.windows.net,1433;Initial Catalog=student-noted-db;Persist Security Info=False;User ID=Vika;Password=bla-bla-bla#01;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30";
         // ApplicationContext context / EFContext
-        public void InitializeDB()
+        public void InitializeDB(ApplicationContext context)
         {
-            //connectionStr.Database.EnsureCreated();
-            //EFContext.Database.EnsureCreated();
-            EFcontext.Database.EnsureDeleted();
-            EFcontext.Database.EnsureCreated();
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
 
             var user = new User {};
-            EFContext.Users.Add(user);
-            EFcontext.SaveChanges();
+            сontext.Users.Add(user);
+            context.SaveChanges();
 
             var role = new Role {};
-            EFContext.Roles.Add(role);
-            EFcontext.SaveChanges();
+            сontext.Roles.Add(role);
+            context.SaveChanges();
 
-            var user_token = new UserToken {};
-            EFContext.UserTokens.Add(user_token);
-            EFcontext.SaveChanges();
+            var userToken = new UserToken {};
+            context.UserTokens.Add(userToken);
+            context.SaveChanges();
 
-            var file_note = new FileNote {};
-            EFContext.FileNotes.Add(file_note);
-            EFcontext.SaveChanges();
+            var fileNote = new FileNote {};
+            context.FileNotes.Add(fileNote);
+            context.SaveChanges();
 
-            var txt_note = new TextNote {};
-            EFContext.TextNotes.Add(txt_note);
-            EFcontext.SaveChanges();
+            var txtNote = new TextNote {};
+            context.TextNotes.Add(txtNote);
+            context.SaveChanges();
 
-            var note_base = new NoteBase {};
-            EFContext.NoteBases.Add(note_base);
-            EFcontext.SaveChanges();
+            var noteBase = new NoteBase {};
+            context.NoteBases.Add(noteBase);
+            context.SaveChanges();
 
             var type = new Core.Entities.Type {};
-            EFContext.Types.Add(type);
-            EFcontext.SaveChanges();
+            context.Types.Add(type);
+            context.SaveChanges();
 
             var teacher = new Teacher {};
-            EFContext.Teachers.Add(teacher);
-            EFcontext.SaveChanges();
+            context.Teachers.Add(teacher);
+            context.SaveChanges();
 
             var group = new Group {};
-            EFContext.Groups.Add(group);
-            EFcontext.SaveChanges();
+            context.Groups.Add(group);
+            context.SaveChanges();
 
             var subj = new Subject {};
-            EFContext.Subjects.Add(subj);
-            EFcontext.SaveChanges();
+            context.Subjects.Add(subj);
+            context.SaveChanges();
 
             var file = new Core.Entities.File {};
-            EFContext.Files.Add(file);
-            EFcontext.SaveChanges();
+            context.Files.Add(file);
+            context.SaveChanges();
 
         }
         public async Task<string> UploadAsync()
