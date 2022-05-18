@@ -14,7 +14,7 @@ namespace StudentNotes.Infrastructure.Repositories
 
         public async Task AddAsync(TEntity item)
         {
-            await _table.Add(item);
+            await _table.AddAsync(item);
         }
         
         public void Attach(params object[] obj)
@@ -27,9 +27,9 @@ namespace StudentNotes.Infrastructure.Repositories
             await _table.Remove(item);        }
         }
 
-        public Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            await this._tabl
         }
 
         public Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)

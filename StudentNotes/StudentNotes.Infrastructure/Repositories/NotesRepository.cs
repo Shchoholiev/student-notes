@@ -23,23 +23,6 @@ namespace StudentNotes.Infrastructure.Repositories
             this.SaveAsync();
         }
 
-        public async Task<IEnumerable<NoteBase>> GetAllAsync(DateOnly month)
-        {
-            var notes = this._table.AsNoTracking().Include(note => note.DeadLine.Month == month).ToList();
-            foreach(var entity in notes.OrderBy(en => en.Id))
-            {
-                var text = await this._db.TextNotes
-                    .AsNoTracking()
-                    .Include(x => x.Id)
-                    .FirstOrDefaultAsync()
-            }
-        }
-
-        public async Task<IEnumerable<NoteBase>> GetAllAsync(DateOnly day)
-        {
-            return this._table.AsNoTracking().Include(note => note.DeadLine.Day == day).ToList();
-        }
-
         public async Task<NoteBase> GetNoteAsync(int id)
         {
             return await this._table.FirstOrDefaultAsync<NoteBase>(entity => entity.Id == id);
@@ -47,13 +30,71 @@ namespace StudentNotes.Infrastructure.Repositories
 
         public async Task UpdateAsync(NoteBase item)
         {
-            _db.Entry(item).State = EntityState.Modified;
+            this._db.Entry(item).State = EntityState.Modified;
             this.SaveAsync();
         }
 
         public async Task SaveAsync()
         {
             await this._db.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<NoteBase>> GetMonthNotesAsync(DateOnly month)
+        {
+            var rawNotes = this._table.AsNoTracking()
+                               .Where(date => date.DeadLine.Year == month.Year && date.DeadLine.Month == month.Month);
+            var notes = new List<NoteBase>();
+
+            foreach (var note in rawNotes)
+            {
+                var text = await this._db.TextNotes
+                    .AsNoTracking()
+                    .Include(t => t.Subject)
+                    .Include(t => t.Type)
+                    .Include(t => t.Author)
+                    .Include(t => t.UsersCompleted)
+                    .FirstOrDefaultAsync(t => t.Id == note.Id);
+
+                var file = await this._db.FileNotes
+                    .AsNoTracking()
+                    .Include(t => t.Subject)
+                    .Include(t => t.Type)
+                    .Include(t => t.Author)
+                    .Include(t => t.UsersCompleted)
+                    .Include(f => f.Files)
+                    .FirstOrDefaultAsync(f => f.Id == note.Id);
+                notes.Add(text ?? file ?? new NoteBase());
+            }
+            return notes;
+        }
+
+        public async Task<IEnumerable<NoteBase>> GetDayNotesAsync(DateOnly day)
+        {
+            var rawNotes = this._table.AsNoTracking()
+                               .Where(date => date.DeadLine.Year == day.Year && date.DeadLine.Month == day.Month && date.DeadLine.Day == day.Day);
+            var notes = new List<NoteBase>();
+
+            foreach (var note in rawNotes)
+            {
+                var text = await this._db.TextNotes
+                    .AsNoTracking()
+                    .Include(t => t.Subject)
+                    .Include(t => t.Type)
+                    .Include(t => t.Author)
+                    .Include(t => t.UsersCompleted)
+                    .FirstOrDefaultAsync(t => t.Id == note.Id);
+
+                var file = await this._db.FileNotes
+                    .AsNoTracking()
+                    .Include(t => t.Subject)
+                    .Include(t => t.Type)
+                    .Include(t => t.Author)
+                    .Include(t => t.UsersCompleted)
+                    .Include(f => f.Files)
+                    .FirstOrDefaultAsync(f => f.Id == note.Id);
+                notes.Add(text ?? file ?? new NoteBase());
+            }
+            return notes;
         }
     }
 }

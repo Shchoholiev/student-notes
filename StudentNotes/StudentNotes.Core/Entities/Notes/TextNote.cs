@@ -1,6 +1,6 @@
 ﻿namespace StudentNotes.Core.Entities.Notes
 {
-    public class TextNote : EntityBase
+    public class TextNote : NoteBase
     {
         public string Name { get; set; }
 
