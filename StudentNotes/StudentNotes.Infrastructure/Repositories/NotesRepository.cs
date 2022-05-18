@@ -1,38 +1,59 @@
 ﻿using StudentNotes.Application.IRepositories;
 using StudentNotes.Core.Entities.Notes;
+using Microsoft.EntityFrameworkCore;
+using StudentNotes.Infrastructure.ApplicationContext;
 
 namespace StudentNotes.Infrastructure.Repositories
 {
     public class NotesRepository : INotesRepository
     {
-        public Task AddAsync(NoteBase item)
+        private DbSet<NoteBase> _table;
+
+        private EFContext _db;
+
+        public async Task AddAsync(NoteBase item)
         {
-            throw new NotImplementedException();
+            await this._table.AddAsync(item);
+            this.SaveAsync();
         }
 
-        public Task DeleteAsync(NoteBase item)
+        public async Task DeleteAsync(NoteBase item)
         {
-            throw new NotImplementedException();
+            this._table.Remove(item);
+            this.SaveAsync();
         }
 
-        public Task<IEnumerable<NoteBase>> GetAllAsync(int month)
+        public async Task<IEnumerable<NoteBase>> GetAllAsync(DateOnly month)
         {
-            throw new NotImplementedException();
+            var notes = this._table.AsNoTracking().Include(note => note.DeadLine.Month == month).ToList();
+            foreach(var entity in notes.OrderBy(en => en.Id))
+            {
+                var text = await this._db.TextNotes
+                    .AsNoTracking()
+                    .Include(x => x.Id)
+                    .FirstOrDefaultAsync()
+            }
         }
 
-        public Task<IEnumerable<NoteBase>> GetAllAsync(DateOnly day)
+        public async Task<IEnumerable<NoteBase>> GetAllAsync(DateOnly day)
         {
-            throw new NotImplementedException();
+            return this._table.AsNoTracking().Include(note => note.DeadLine.Day == day).ToList();
         }
 
-        public Task<NoteBase> GetNoteAsync(int id)
+        public async Task<NoteBase> GetNoteAsync(int id)
         {
-            throw new NotImplementedException();
+            return await this._table.FirstOrDefaultAsync<NoteBase>(entity => entity.Id == id);
         }
 
-        public Task UpdateAsync(NoteBase item)
+        public async Task UpdateAsync(NoteBase item)
         {
-            throw new NotImplementedException();
+            _db.Entry(item).State = EntityState.Modified;
+            this.SaveAsync();
+        }
+
+        public async Task SaveAsync()
+        {
+            await this._db.SaveChangesAsync();
         }
     }
 }

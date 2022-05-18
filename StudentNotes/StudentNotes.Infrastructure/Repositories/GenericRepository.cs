@@ -2,24 +2,29 @@
 using StudentNotes.Application.Paging;
 using StudentNotes.Core.Entities;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
+using StudentNotes.Infrastructure.ApplicationContext;
 
 namespace StudentNotes.Infrastructure.Repositories
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : EntityBase
     {
-        public Task AddAsync(TEntity item)
-        {
-            throw new NotImplementedException();
-        }
+        private DbSet<TEntity> _table;
+        private EFContext _db;
 
+        public async Task AddAsync(TEntity item)
+        {
+            await _table.Add(item);
+        }
+        
         public void Attach(params object[] obj)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteAsync(TEntity item)
+        public async Task DeleteAsync(TEntity item)
         {
-            throw new NotImplementedException();
+            await _table.Remove(item);        }
         }
 
         public Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate)
@@ -32,9 +37,9 @@ namespace StudentNotes.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<TEntity> GetOneAsync(int id)
+        public async Task<TEntity> GetOneAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _table.Find(id);
         }
 
         public Task<TEntity> GetOneAsync(int id, params Expression<Func<TEntity, object>>[] includeProperties)
@@ -56,15 +61,15 @@ namespace StudentNotes.Infrastructure.Repositories
         {
             throw new NotImplementedException();
         }
-
-        public Task SaveAsync()
+    
+        public async Task SaveAsync()
         {
-            throw new NotImplementedException();
+            await _db.SaveChanges();
         }
-
-        public Task UpdateAsync(TEntity item)
+    
+        public async Task UpdateAsync(TEntity item)
         {
-            throw new NotImplementedException();
+            await _db.Entry(item).State = EntityState.Modified;
         }
     }
 }

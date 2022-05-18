@@ -12,7 +12,7 @@ namespace StudentNotes.Application.IRepositories
 
         Task<NoteBase> GetNoteAsync(int id);
 
-        Task<IEnumerable<NoteBase>> GetAllAsync(int month);
+        Task<IEnumerable<NoteBase>> GetAllAsync(DateOnly month);
 
         Task<IEnumerable<NoteBase>> GetAllAsync(DateOnly day);
     }
