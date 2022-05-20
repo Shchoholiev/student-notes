@@ -6,17 +6,29 @@ import { AppComponent } from './app.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { TextNoteComponent } from './calendar/text-note/text-note.component';
 import { FileNoteComponent } from './calendar/file-note/file-note.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AddTextNoteComponent } from './calendar/add-text-note/add-text-note.component';
+import { AddFileNoteComponent } from './calendar/add-file-note/add-file-note.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     CalendarComponent,
     TextNoteComponent,
-    FileNoteComponent
+    FileNoteComponent,
+    AddTextNoteComponent,
+    AddFileNoteComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatDialogModule,
+    FormsModule,
+    MatButtonModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

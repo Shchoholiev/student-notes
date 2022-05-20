@@ -3,6 +3,9 @@ import { FileNote } from '../shared/file-note.model';
 import { File } from '../shared/file.model';
 import { NoteBase } from '../shared/note-base.model';
 import { TextNote } from '../shared/text-note.model';
+import { MatDialog } from '@angular/material/dialog';
+import { AddFileNoteComponent } from './add-file-note/add-file-note.component';
+import { AddTextNoteComponent } from './add-text-note/add-text-note.component';
 
 @Component({
   selector: 'app-calendar',
@@ -21,7 +24,7 @@ export class CalendarComponent implements OnInit {
 
   public chosenDate: Date = new Date();
 
-  constructor() { }
+  constructor(private _dialog: MatDialog) { }
 
   ngOnInit(): void {
     var textNote = new TextNote("Test", "Text text text");
@@ -62,6 +65,14 @@ export class CalendarComponent implements OnInit {
   public chooseDate(date: Date){
     this.chosenDate = date;
     //more logic coming
+  }
+
+  public openAddTextNoteDialog(){
+    this._dialog.open(AddTextNoteComponent);
+  }
+
+  public openAddFileNoteDialog(){
+    this._dialog.open(AddFileNoteComponent);
   }
 
   public readonly months: string[] = [
