@@ -12,6 +12,7 @@ import { AddFileNoteComponent } from './calendar/add-file-note/add-file-note.com
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
+import { ProfileComponent } from './account/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     TextNoteComponent,
     FileNoteComponent,
     AddTextNoteComponent,
-    AddFileNoteComponent
+    AddFileNoteComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
