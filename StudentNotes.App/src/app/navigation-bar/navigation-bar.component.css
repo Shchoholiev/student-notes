@@ -7,7 +7,7 @@
   grid-area: menu;
   background-color: #fff;
   display: grid;
-  grid-template-columns: 0.2fr 0.3fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr;
+  grid-template-columns: 0.3fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr;
   align-items: center;
   justify-items: center;
   height: 70px;

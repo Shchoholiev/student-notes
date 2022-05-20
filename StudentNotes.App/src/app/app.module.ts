@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from './account/profile/profile.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { LoginComponent } from './account/login/login.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
     AddTextNoteComponent,
     AddFileNoteComponent,
     ProfileComponent,
-    NavigationBarComponent
+    NavigationBarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
