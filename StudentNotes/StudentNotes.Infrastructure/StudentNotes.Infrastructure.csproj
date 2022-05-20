@@ -11,4 +11,8 @@
     <ProjectReference Include="..\StudentNotes.Core\StudentNotes.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="6.0.5" />
+  </ItemGroup>
+
 </Project>
