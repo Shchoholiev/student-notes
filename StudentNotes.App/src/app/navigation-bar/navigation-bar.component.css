@@ -1,21 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap");
-#container {
+.menu {
   font-family: "Quicksand", sans-serif;
   font-size: 18px;
-
-  color: #fff;
-  overflow: hidden;
-  margin: 0px;
-}
-#container {
-  display: grid;
-  height: calc(100vh - 70px);
-
-  grid-template-columns: 0.2fr 1fr;
-  grid-template-rows: 1fr 0.02fr;
-  grid-template-areas:
-    "sidebar content"
-    "sidebar footer";
 }
 .menu {
   grid-area: menu;
@@ -24,6 +10,7 @@
   grid-template-columns: 0.2fr 0.3fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr;
   align-items: center;
   justify-items: center;
+  height: 70px;
 }
 #burger {
   width: 50px;
@@ -180,16 +167,16 @@
   background-color: #ffe141;
   border: none;
   border-radius: 10px;
-  cursor: pointer;
+}
+.calendar_button :hover {
+  opacity: 0.6;
   transition: 0.5s;
+}
+span {
   font-size: 15px;
   font-weight: bolder;
   font-family: "Quicksand", sans-serif;
 }
-.calendar_button :hover {
-  opacity: 0.6;
-}
-
 .footer {
   background-color: #272727;
   grid-area: footer;
@@ -295,6 +282,7 @@
   #container {
     grid-template-columns: 1fr 0fr;
     grid-template-areas:
+      "menu menu"
       "content content"
       "footer footer";
   }

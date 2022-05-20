@@ -13,6 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from './account/profile/profile.component';
+import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ProfileComponent } from './account/profile/profile.component';
     FileNoteComponent,
     AddTextNoteComponent,
     AddFileNoteComponent,
-    ProfileComponent
+    ProfileComponent,
+    NavigationBarComponent
   ],
   imports: [
     BrowserModule,

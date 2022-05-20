@@ -20,5 +20,4 @@ export class ProfileComponent implements OnInit {
     group.name = "PZPI-21-4"
     this.user.group = group;
   }
-
 }
