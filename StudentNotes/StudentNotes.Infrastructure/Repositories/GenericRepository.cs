@@ -38,14 +38,7 @@ namespace StudentNotes.Infrastructure.Repositories
 
         public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            if(await this._table.AnyAsync<TEntity>(predicate))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return await this._table.AnyAsync<TEntity>(predicate);
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
