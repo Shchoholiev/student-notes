@@ -86,10 +86,10 @@ namespace StudentNotes.Infrastructure.Repositories
 
                 var file = await this._db.FileNotes
                     .AsNoTracking()
-                    .Include(t => t.Subject)
-                    .Include(t => t.Type)
-                    .Include(t => t.Author)
-                    .Include(t => t.UsersCompleted)
+                    .Include(f => f.Subject)
+                    .Include(f => f.Type)
+                    .Include(f => f.Author)
+                    .Include(f => f.UsersCompleted)
                     .Include(f => f.Files)
                     .FirstOrDefaultAsync(f => f.Id == note.Id);
                 notes.Add(text ?? file ?? new NoteBase());
