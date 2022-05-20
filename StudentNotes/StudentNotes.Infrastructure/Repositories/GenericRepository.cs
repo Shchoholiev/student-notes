@@ -22,42 +22,41 @@ namespace StudentNotes.Infrastructure.Repositories
         public async Task AddAsync(TEntity item)
         {
             await this._table.AddAsync(item);
-            this.SaveAsync();
+            await this.SaveAsync();
         }
 
         public void Attach(params object[] obj)
         {
             this._db.AttachRange(obj);
-            this.SaveAsync();
         }
 
         public async Task DeleteAsync(TEntity item)
         {
             this._table.Remove(item);
-            this.SaveAsync();
+            await this.SaveAsync();
         }
 
         public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            if(this._table.FirstOrDefaultAsync<TEntity>(predicate) == null)
+            if(await this._table.AnyAsync<TEntity>(predicate))
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            IQueryable<TEntity> query = this._db.Set<TEntity>();
+            var query = this._table.AsNoTracking().Where(predicate);
             foreach (var property in includeProperties)
             {
                 query = query.Include(property);
             }
 
-            return query.AsNoTracking().Where(predicate);
+            return await query.ToListAsync<TEntity>();
         }
 
         public async Task<TEntity> GetOneAsync(int id)
@@ -67,7 +66,7 @@ namespace StudentNotes.Infrastructure.Repositories
 
         public async Task<TEntity> GetOneAsync(int id, params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            IQueryable<TEntity> query = this._table.AsNoTracking().Where(entity => entity.Id == id);
+            var query = this._table.AsNoTracking().Where(entity => entity.Id == id);
             foreach (var property in includeProperties)
             {
                 query = query.Include(property);
@@ -78,32 +77,40 @@ namespace StudentNotes.Infrastructure.Repositories
 
         public async Task<PagedList<TEntity>> GetPageAsync(PageParameters pageParameters)
         {
-            var items = this._table.Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize).Take(pageParameters.PageSize);
-            var pagedList = new PagedList<TEntity>(items, pageParameters, items.Count());
+            var items = this._table.AsNoTracking()
+                                   .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
+                                   .Take(pageParameters.PageSize);
+            var pagedList = new PagedList<TEntity>(items, pageParameters, await items.CountAsync());
             return pagedList;
         }
 
-        public async Task<PagedList<TEntity>> GetPageAsync(PageParameters pageParameters, params Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<PagedList<TEntity>> GetPageAsync(PageParameters pageParameters,
+                                                           params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            var items = this._table.AsNoTracking();
+            var items = this._table.AsNoTracking()
+                                   .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
+                                   .Take(pageParameters.PageSize);
             foreach (var property in includeProperties)
             {
                 items = items.Include(property);
             }
-            var resultItems = items.Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize).Take(pageParameters.PageSize);
-            var pagedList = new PagedList<TEntity>(resultItems, pageParameters, resultItems.Count());
+            var pagedList = new PagedList<TEntity>(items, pageParameters, await items.CountAsync());
             return pagedList;
         }
 
-        public async Task<PagedList<TEntity>> GetPageAsync(PageParameters pageParameters, Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<PagedList<TEntity>> GetPageAsync(PageParameters pageParameters,
+                                                           Expression<Func<TEntity, bool>> predicate,
+                                                           params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            var items = this._table.AsNoTracking().Where<TEntity>(predicate);
+            var items = this._table.AsNoTracking()
+                                   .Where(predicate)
+                                   .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
+                                   .Take(pageParameters.PageSize); ;
             foreach (var property in includeProperties)
             {
                 items = items.Include(property);
             }
-            var resultItems = items.Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize).Take(pageParameters.PageSize);
-            var pagedList = new PagedList<TEntity>(resultItems, pageParameters, resultItems.Count());
+            var pagedList = new PagedList<TEntity>(items, pageParameters, await items.CountAsync());
             return pagedList;
         }
 
@@ -114,8 +121,8 @@ namespace StudentNotes.Infrastructure.Repositories
 
         public async Task UpdateAsync(TEntity item)
         {
-            this._db.Entry(item).State = EntityState.Modified;
-            this.SaveAsync();
+            this._table.Update(item);
+            await this.SaveAsync();
         }
     }
 }
