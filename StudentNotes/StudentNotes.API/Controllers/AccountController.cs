@@ -76,6 +76,14 @@ namespace StudentNotes.API.Controllers
             return BadRequest();
         }
 
+        [HttpGet]
+        public async Task<ActionResult<User>> Profile()
+        {
+            var email = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            var user = await this._usersService.GetAsync(email);
+            return user;
+        }
+
         private async Task<Object> UpdateUserTokens(User user)
         {
             var claims = await this.GetClaims(user);
