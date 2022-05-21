@@ -14,6 +14,21 @@ namespace StudentNotes.Infrastructure.ApplicationContext
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Group>()
+                .HasOne<User>(g => g.Headman);
+
+            modelBuilder.Entity<Group>()
+                .HasMany<User>(g => g.Users)
+                .WithOne(u => u.Group)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Group>()
+                .HasIndex(g => g.InviteCode)
+                .IsUnique();
+        }
+
         public DbSet<User> Users { get; set; }
 
         public DbSet<Role> Roles { get; set; }

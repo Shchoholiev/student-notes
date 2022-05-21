@@ -1,6 +1,8 @@
 using StudentNotes.API;
 using StudentNotes.Infrastructure;
 using Newtonsoft.Json;
+using StudentNotes.Infrastructure.ApplicationContext;
+using StudentNotes.Infrastructure.DataInitializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,9 +31,9 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-//var scope = app.Services.CreateScope();
-//var context = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
-//await DbInitializer.Initialize(context);
+var scope = app.Services.CreateScope();
+var context = scope.ServiceProvider.GetRequiredService<EFContext>();
+DbInitializer.Initialize(context);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
