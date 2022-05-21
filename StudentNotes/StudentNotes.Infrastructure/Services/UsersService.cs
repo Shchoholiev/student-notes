@@ -69,7 +69,9 @@ namespace StudentNotes.Infrastructure.Services
 
         public async Task<User?> GetAsync(string email)
         {
-            return (await this._usersRepository.GetAllAsync(u => u.Email == email)).FirstOrDefault();
+            var user = await this._usersRepository.GetAllAsync(u => u.Email == email,
+                                                               u => u.Group, u => u.UserToken, u => u.Roles);
+            return user.FirstOrDefault();
         }
 
         public async Task UpdateAsync(User user)
