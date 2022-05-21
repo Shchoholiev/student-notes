@@ -12,8 +12,8 @@ namespace StudentNotes.Application.IServices
 
         Task<User?> GetAsync(string email);
 
-        Task<OperationDetails> UpdateAsync(User user);
+        Task UpdateAsync(User user);
 
-        Task DeleteAsync(string id);
+        Task DeleteAsync(string email);
     }
 }
