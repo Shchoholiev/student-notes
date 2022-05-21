@@ -7,6 +7,9 @@ using StudentNotes.Core.Entities;
 
 namespace StudentNotes.API.Controllers
 {
+    //[Authorize]
+    [ApiController]
+    [Route("api/subjects")]
     public class SubjectsController : Controller
     {
         private readonly IGenericRepository<Subject> _subjectsRepository;
@@ -17,7 +20,7 @@ namespace StudentNotes.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Subject>>> GetBooks([FromQuery] PageParameters pageParameters)
+        public async Task<ActionResult<IEnumerable<Subject>>> GetSubjects([FromQuery] PageParameters pageParameters)
         {
             var subjects = await this._subjectsRepository.GetPageAsync(pageParameters);
             var metadata = new
@@ -35,7 +38,7 @@ namespace StudentNotes.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Subject>> GetTeacher(int id)
+        public async Task<ActionResult<Subject>> GetSubject(int id)
         {
             var subject = await this._subjectsRepository.GetOneAsync(id, s => s.Teachers);
             if (subject == null)

@@ -20,7 +20,7 @@ namespace StudentNotes.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Teacher>>> GetBooks([FromQuery] PageParameters pageParameters)
+        public async Task<ActionResult<IEnumerable<Teacher>>> GetTeachers([FromQuery] PageParameters pageParameters)
         {
             var teachers = await this._teachersRepository.GetPageAsync(pageParameters);
             var metadata = new
