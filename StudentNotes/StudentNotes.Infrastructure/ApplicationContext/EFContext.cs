@@ -7,9 +7,11 @@ namespace StudentNotes.Infrastructure.ApplicationContext
 {
     public class EFContext : DbContext
     {
-        public EFContext()
+        public EFContext() { }
+
+        public EFContext(DbContextOptions<EFContext> options)
+            : base(options)
         {
-           
         }
 
         public DbSet<User> Users { get; set; }
@@ -33,10 +35,5 @@ namespace StudentNotes.Infrastructure.ApplicationContext
         public DbSet<Group> Groups { get; set; }
 
         public DbSet<Core.Entities.File> Files { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=StudentNotes;Trusted_Connection=True;");
-        }
     }
 }
