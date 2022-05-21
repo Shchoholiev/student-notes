@@ -8,7 +8,7 @@
         
         public string PasswordHash { get; set; }
         
-        public UserToken UserToken { get; set; }
+        public UserToken? UserToken { get; set; }
         
         public string Avatar { get; set; }
         
