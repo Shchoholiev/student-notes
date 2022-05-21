@@ -4,6 +4,6 @@
     {
         public string Name { get; set; }
         
-        public Teacher Teacher { get; set; }
+        public List<Teacher> Teachers { get; set; }
     }
 }
