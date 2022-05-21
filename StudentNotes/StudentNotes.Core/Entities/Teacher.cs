@@ -8,6 +8,6 @@
         
         public string Avatar { get; set; }
         
-        public List<Subject> Subjects { get; set; }
+        public List<Subject>? Subjects { get; set; }
     }
 }

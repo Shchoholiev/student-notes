@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StudentNotes.API.ViewModels;
 using StudentNotes.Application.IServices;
 using System.Security.Claims;
 
 namespace StudentNotes.API.Controllers
 {
+    [Authorize]
+    [ApiController]
+    [Route("api/tokens")]
     public class TokensController : Controller
     {
         private readonly ITokenService _tokenService;

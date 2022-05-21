@@ -12,6 +12,6 @@ namespace StudentNotes.Core.Entities.Notes
                 
         public User Author { get; set; }
 
-        public List<User> UsersCompleted { get; set; }
+        public List<User>? UsersCompleted { get; set; }
     }
 }
