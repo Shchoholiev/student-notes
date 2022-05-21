@@ -1,17 +1,20 @@
 ﻿using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using StudentNotes.Application.IServices;
 
 namespace StudentNotes.Infrastructure.Services
 {
-    public class PasswordHasher : StudentNotes.Application.IServices.IPasswordHasher
+    public class PasswordHasher : IPasswordHasher
     {
         public string Hash(string password)
         {
             var salt = new byte[128 / 8];
+#pragma warning disable SYSLIB0023 // Type or member is obsolete
             using (var rngCsp = new RNGCryptoServiceProvider())
             {
                 rngCsp.GetNonZeroBytes(salt);
             }
+#pragma warning restore SYSLIB0023 // Type or member is obsolete
 
             var r = new Random();
             int iterationCount = r.Next(0, 1000);
