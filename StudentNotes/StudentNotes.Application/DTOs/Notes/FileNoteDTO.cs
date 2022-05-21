@@ -2,6 +2,6 @@
 {
     public class FileNoteDTO : NoteBaseDTO
     {
-        public List<File> Files { get; set; }
+        public List<StudentNotes.Core.Entities.File> Files { get; set; }
     }
 }
