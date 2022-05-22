@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Authorization;
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using StudentNotes.Application.IRepositories;
-using StudentNotes.Application.Paging;
 using StudentNotes.Core.Entities;
 
 namespace StudentNotes.API.Controllers
@@ -20,24 +18,6 @@ namespace StudentNotes.API.Controllers
             this._groupsRepository = groupsRepository;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Group>>> GetGroups([FromQuery] PageParameters pageParameters)
-        {
-            var groups = await this._groupsRepository.GetPageAsync(pageParameters);
-            var metadata = new
-            {
-                groups.TotalItems,
-                groups.PageSize,
-                groups.PageNumber,
-                groups.TotalPages,
-                groups.HasNextPage,
-                groups.HasPreviousPage
-            };
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
-
-            return groups;
-        }
-
         [HttpGet("{id}")]
         public async Task<ActionResult<Group>> GetGroup(int id)
         {
@@ -53,41 +33,41 @@ namespace StudentNotes.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Group group)
         {
-            if (ModelState.IsValid)
+            do
             {
-                if (await this._groupsRepository.ExistsAsync(g => g.InviteCode == group.InviteCode))
-                {
-                    ModelState.AddModelError(String.Empty, "Group with such invite code already exists!");
-                }
-                else
-                {
-                    this._groupsRepository.Attach(group);
-                    await this._groupsRepository.AddAsync(group);
-                    return CreatedAtAction("GetGroup", new { id = group.Id }, group);
-                }
-            }
-
-            return BadRequest(ModelState);
+                group.InviteCode = GenerateInviteCode();
+            } while (await this._groupsRepository.ExistsAsync(g => g.InviteCode == group.InviteCode));
+            
+            this._groupsRepository.Attach(group); 
+            await this._groupsRepository.AddAsync(group); 
+            return CreatedAtAction("GetGroup", new { id = group.Id }, group);
+            
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Edit(int id, [FromBody] Group group)
         {
-            if (ModelState.IsValid)
+            do
             {
-                if (await this._groupsRepository.ExistsAsync(g => g.InviteCode == group.InviteCode))
-                {
-                    ModelState.AddModelError(String.Empty, "Group with such invite code already exists!");
-                }
-                else
-                {
-                    this._groupsRepository.Attach(group);
-                    await this._groupsRepository.UpdateAsync(group);
-                    return NoContent();
-                }
-            }
+                group.InviteCode = GenerateInviteCode();
+            } while (await this._groupsRepository.ExistsAsync(g => g.InviteCode == group.InviteCode));
+            
+            this._groupsRepository.Attach(group);
+            await this._groupsRepository.UpdateAsync(group);
+            return NoContent();
+        }
 
-            return BadRequest();
+        [HttpPut("{id}")]
+        public async Task<IActionResult> RefreshInviteCode(int id, [FromBody] Group group)
+        {
+            do
+            {
+                group.InviteCode = GenerateInviteCode();
+            } while (await this._groupsRepository.ExistsAsync(g => g.InviteCode == group.InviteCode));
+            
+            this._groupsRepository.Attach(group);
+            await this._groupsRepository.UpdateAsync(group);
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
@@ -102,6 +82,21 @@ namespace StudentNotes.API.Controllers
             await this._groupsRepository.DeleteAsync(group);
             
             return NoContent();
+        }
+
+        private string GenerateInviteCode()
+        {
+            string alphabet = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm";
+            var random = new Random();
+            var sb = new StringBuilder();
+            int position;
+            for (int i = 0; i < 10; i++)
+            {
+                position = random.Next(0, alphabet.Length - 1);
+                sb.Append(alphabet[position]);
+            }
+
+            return sb.ToString();
         }
     }
 } 
