@@ -15,22 +15,26 @@ namespace StudentNotes.API.Controllers
     {
         private readonly IGenericRepository<Group> _groupsRepository;
 
-        private readonly IUsersService _usersService;
+        private readonly IGenericRepository<User> _usersRepository;
 
-        public GroupsController(IGenericRepository<Group> groupsRepository, IUsersService usersService)
+        public GroupsController(IGenericRepository<Group> groupsRepository,
+                                IGenericRepository<User> usersRepository)
         {
             this._groupsRepository = groupsRepository;
-            this._usersService = usersService;
+            this._usersRepository = usersRepository;
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Group>> GetGroup(int id)
         {
-            var group = await this._groupsRepository.GetOneAsync(id, g => g.Users);
+            var group = await this._groupsRepository.GetOneAsync(id);
             if (group == null)
             {
                 return NotFound();
             }
+
+            var users = await this._usersRepository.GetAllAsync(u => u.Group.Id == group.Id, u => u.Roles);
+            group.Users = users.ToList();
 
             return group;
         }
