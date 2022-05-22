@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from './account/profile/profile.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { LoginComponent } from './account/login/login.component';
+import { RegisterComponent } from './account/register/register.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { LoginComponent } from './account/login/login.component';
     AddFileNoteComponent,
     ProfileComponent,
     NavigationBarComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
