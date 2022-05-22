@@ -10,7 +10,7 @@ namespace StudentNotes.Core.Entities.Notes
         
         public Subject Subject { get; set; }
                 
-        public User Author { get; set; }
+        public User? Author { get; set; }
 
         public Group? Group { get; set; }
 

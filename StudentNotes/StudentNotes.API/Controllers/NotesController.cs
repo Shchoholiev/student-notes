@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using StudentNotes.Core.Entities.Notes;
 using StudentNotes.Application.IServices;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StudentNotes.API.Controllers
 {
@@ -52,8 +53,25 @@ namespace StudentNotes.API.Controllers
             return note;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] NoteBase note)
+        [HttpPost("text-note")]
+        public async Task<IActionResult> Create([FromBody] TextNote note)
+        {
+            if (ModelState.IsValid)
+            {
+                var email = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+                var user = await this._usersService.GetAsync(email);
+                note.Author = user;
+                note.Group = user.Group;
+                this._notesRepository.Attach(note);
+                await this._notesRepository.AddAsync(note);
+                return CreatedAtAction("GetNote", new { id = note.Id }, note);
+            }
+
+            return BadRequest(ModelState);
+        }
+
+        [HttpPost("file-note")]
+        public async Task<IActionResult> Create([FromBody] FileNote note)
         {
             if (ModelState.IsValid)
             {

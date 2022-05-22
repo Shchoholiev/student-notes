@@ -20,6 +20,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthInterceptor } from './auth-interceptor';
 import { GroupComponent } from './groups/group/group.component';
+import { TeacherComponent } from './teachers/teacher/teacher.component';
+import { SubjectComponent } from './subjects/subject/subject.component';
+import { TypeComponent } from './types/type/type.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -37,7 +40,10 @@ export function tokenGetter() {
     NavigationBarComponent,
     LoginComponent,
     RegisterComponent,
-    GroupComponent
+    GroupComponent,
+    TeacherComponent,
+    SubjectComponent,
+    TypeComponent
   ],
   imports: [
     BrowserModule,
