@@ -17,6 +17,11 @@ namespace StudentNotes.Infrastructure.Repositories
 
         private EFContext _db;
 
+        public void Attach(params object[] obj)
+        {
+            this._db.AttachRange(obj);
+        }
+
         public async Task AddAsync(NoteBase item)
         {
             await this._table.AddAsync(item);
