@@ -10,6 +10,8 @@ namespace StudentNotes.Application.IRepositories
 
         Task DeleteAsync(NoteBase item);
 
+        void Attach(params object[] obj);
+
         Task<NoteBase> GetNoteAsync(int id);
 
         Task<IEnumerable<NoteBase>> GetMonthNotesAsync(DateOnly month);

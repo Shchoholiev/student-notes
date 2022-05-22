@@ -17,9 +17,15 @@ namespace StudentNotes.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<NoteBase>>> GetNotesByDay([FromQuery] DateOnly day)
+        public async Task<ActionResult<IEnumerable<NoteBase>>> GetNotesByDay([FromBody] DateOnly day)
         {
-            return await this._notesRepository.GetDayNotesAsync(day);
+            return Ok(await this._notesRepository.GetDayNotesAsync(day));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<NoteBase>>> GetNotesByMonth([FromBody] DateOnly month)
+        {
+            return Ok(await this._notesRepository.GetMonthNotesAsync(month));
         }
 
         [HttpGet("{id}")]
@@ -31,6 +37,32 @@ namespace StudentNotes.API.Controllers
                 return NotFound();
             }
             return note;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] NoteBase note)
+        {
+            if (ModelState.IsValid)
+            {
+                 this._notesRepository.Attach(note);
+                 await this._notesRepository.AddAsync(note);
+                 return CreatedAtAction("GetNote", new { id = note.Id }, note);
+            }
+
+            return BadRequest(ModelState);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Edit(int id, [FromBody] NoteBase note)
+        {
+            if (ModelState.IsValid)
+            {
+                this._notesRepository.Attach(note);
+                await this._notesRepository.UpdateAsync(note);
+                return NoContent();
+            }
+
+            return BadRequest(ModelState);
         }
 
         [HttpDelete("{id}")]
