@@ -347,3 +347,7 @@ html {
 .add-note:hover{
     background-color: rgba(0, 0, 0, 0.9);
 }
+.btns{
+    display: flex;
+    justify-content: space-between;
+}
