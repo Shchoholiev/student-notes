@@ -16,13 +16,13 @@ namespace StudentNotes.API.Controllers
             this._notesRepository = notesRepository;
         }
 
-        [HttpGet]
+        [HttpGet("day")]
         public async Task<ActionResult<IEnumerable<NoteBase>>> GetNotesByDay([FromBody] DateOnly day)
         {
             return Ok(await this._notesRepository.GetDayNotesAsync(day));
         }
 
-        [HttpGet]
+        [HttpGet("month")]
         public async Task<ActionResult<IEnumerable<NoteBase>>> GetNotesByMonth([FromBody] DateOnly month)
         {
             return Ok(await this._notesRepository.GetMonthNotesAsync(month));
