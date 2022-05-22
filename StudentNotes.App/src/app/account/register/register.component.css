@@ -8,8 +8,28 @@
 }
 .container {
   display: grid;
-  grid-template-columns: 25% 50% 25%;
+  grid-template-columns: 20% 60% 20%;
   height: 100vh;
+}
+@media (max-width: 1199px) {
+    .container {
+        grid-template-columns: 15% 70% 15%;
+    }
+}
+@media (max-width: 600px){
+    .container {
+        grid-template-columns: 10% 80% 10%;
+    }
+}
+@media (max-width: 480px) {
+    .container {
+        grid-template-columns: 5% 90% 5%;
+    }
+}
+@media (max-width: 320px) {
+    .container {
+        grid-template-columns: 2% 96% 2%;
+    }
 }
 .field {
   height:70%;
@@ -26,15 +46,33 @@
   grid-template-areas: 
   "header header"
   "title title"
-"name name"
-"input2 input2"
-"email email"
-"input3 input3"
-"password password"
-"input4 input4"
-"sign  checkbox "
-"footer footer"
+    "name name"
+    "input1 input1"
+    "email email"
+    "input2 input2"
+    "password password"
+    "input3 input3"
+    "sign  checkbox "
+    "hash hash"
+    "input4 input4"
+    "footer footer"
 }
+@media (min-width: 768px) and (max-width: 992px) {
+    .field {
+        width: 70%; 
+    }
+}
+@media (max-width: 768px) {
+    .field {
+        width: 80%;
+    }
+}
+@media (max-width: 600px) {
+    .field {
+        width: 100%;
+    }
+}
+
 p{
   margin: 0px;
 }
@@ -47,23 +85,28 @@ p{
 }
 .first{
     grid-area: name;
-    margin-left: 10% !important;
-}
-.second{
-    grid-area: surname;
-    margin-left: 10% !important;
-}
-.third{
-    grid-area: email;
-}
-.forth{
-    grid-area: password;
+    margin-left: 5% !important;
 }
 
+.second {
+    grid-area: email;
+}
+.third{
+    grid-area: password;
+}
+.invite-code{
+    grid-area: hash;
+}
+.name_input{
+    grid-area: input1;
+}
 .email_input{
-    grid-area: input3;
+    grid-area: input2;
 }
 .password_input{
+    grid-area: input3;
+}
+.hash_input{
     grid-area: input4;
 }
 .title {
@@ -83,7 +126,7 @@ p{
 
 }
 .name_input{
-    grid-area: input2;
+    width: 90% !important;
 }
 .input_type{
     border: none;
@@ -94,12 +137,16 @@ p{
     font-size: 17px;
     padding-left: 2%;
 }
-
-
+.hash_input {
+    width: 35%;
+    height: 90%;
+    margin-bottom: 2%;
+}
 .submit_button{
     border: none;
+    margin-top: 2%;
     width: 50%;
-    height: 80%;
+    height: 90%;
     border-radius: 5px;
     grid-area: sign;
 }
@@ -111,13 +158,14 @@ span{
     font-size: 15px;
 }
 .signUp_link{
-   
     color: #fff
 }
 .signUp_link :visited{
     color: #fff;
 }
 .signUp_text{
+    margin-top: 1%;
+    margin-bottom: 5%;
     grid-area: footer;
 }
 .leader{

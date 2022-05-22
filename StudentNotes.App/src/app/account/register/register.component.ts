@@ -10,11 +10,18 @@ export class RegisterComponent implements OnInit {
 
   public user = new Register();
 
-  public text = (this.user.isLeader) ? "Group name" : "Invite code";
+  public text = "Invite code";
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  public onSubmit(){
+
+  }
+
+  public check(){
+    this.text = (!this.user.isLeader) ? "Group name" : "Invite code";
+  }
 }
