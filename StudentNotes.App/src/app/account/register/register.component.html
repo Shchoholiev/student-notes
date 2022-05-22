@@ -1,22 +1,23 @@
 <div class="container">
-    <div class="logo"><p>Be Ready!nure</p></div>
-    <div class="field">
-      <p class="title">Welcome!</p>
-      <p class="title_small">Create your account to start</p>
-      <label class="input_names first">name:</label>
-      <input type="text" class="input_type name_input">
-      <label class="input_names third">email:</label>
-      <input type="email" class="input_type email_input">
-      <label class="input_names forth">password:</label>
-      <input type="password" class="input_type password_input">
-      <div class="leader">
-          <label class="input_names fifth">group leader:</label>
-          <input type="checkbox" class="input_checkbox">
-
-      </div>
-      
-      <button class= "submit_button" type="button"><span>Sign up</span></button>
-      <p class="signUp_text">Already have an account?<a class = "signUp_link" href="index.html"> Log in</a></p>
+  <div class="logo"><p>Be Ready!nure</p></div>
+  <form class="field" (ngSubmit)="onSubmit()" #form="ngForm">
+    <p class="title">Welcome!</p>
+    <p class="title_small">Create your account to start</p>
+    <label class="input_names first">name and surname:</label>
+    <input type="text" class="input_type name_input" name="name" [(ngModel)]="user.name" required>
+    <label class="input_names second">email:</label>
+    <input type="email" class="input_type email_input" name="email" [(ngModel)]="user.email" required>
+    <label class="input_names third">password:</label>
+    <input type="password" class="input_type password_input" name="password" [(ngModel)]="user.password" required>
+    <div class="leader">
+        <label class="input_names forth">group leader:</label>
+        <input type="checkbox" class="input_checkbox" name="isLeader" [(ngModel)]="user.isLeader" (click)="check()">
     </div>
+    <label class="invite-code">{{text}}</label>
+    <input type="text" class="input_type hash_input" name="additionalText" [(ngModel)]="user.additionalText" required>
+    
+    <button class="submit_button" type="submit" [disabled]="!form.valid"><span>Sign up</span></button>
+    <p class="signUp_text">Already have an account?<a class = "signUp_link" routerLink="/account/login"> Log in</a></p>
+  </form>
 
-  </div>
+</div>

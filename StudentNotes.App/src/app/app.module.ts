@@ -16,6 +16,14 @@ import { ProfileComponent } from './account/profile/profile.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { LoginComponent } from './account/login/login.component';
 import { RegisterComponent } from './account/register/register.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
+import { AuthInterceptor } from './auth-interceptor';
+import { GroupComponent } from './groups/group/group.component';
+
+export function tokenGetter() {
+  return localStorage.getItem("jwt");
+}
 
 @NgModule({
   declarations: [
@@ -28,17 +36,28 @@ import { RegisterComponent } from './account/register/register.component';
     ProfileComponent,
     NavigationBarComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    GroupComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     MatDialogModule,
     FormsModule,
     MatButtonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["shchoholiev-chat.azurewebsites.net"],
+        disallowedRoutes: []
+      }
+    })
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

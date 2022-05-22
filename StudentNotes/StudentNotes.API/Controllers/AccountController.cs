@@ -84,6 +84,14 @@ namespace StudentNotes.API.Controllers
             return user;
         }
 
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] User user)
+        {
+            var email = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            var tokens = await UpdateUserTokens(user);
+            return Ok(tokens);
+        }
+
         private async Task<Object> UpdateUserTokens(User user)
         {
             var claims = await this.GetClaims(user);
@@ -97,9 +105,9 @@ namespace StudentNotes.API.Controllers
             };
             await this._usersService.UpdateAsync(user);
 
-            return new
+            return new TokensModel
             {
-                Token = accessToken,
+                AccessToken = accessToken,
                 RefreshToken = refreshToken
             };
         }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AccountService } from '../account.service';
 import { Login } from './login.model';
 
 @Component({
@@ -10,12 +12,16 @@ export class LoginComponent implements OnInit {
 
   public user: Login = new Login();
 
-  constructor() { }
+  private returnUrl: string = '';
 
-  ngOnInit(): void {
-  }
+  constructor(private _route: ActivatedRoute, private _router: Router, 
+              private _accountService: AccountService) { }
 
   onSubmit(){
-    
+    this._accountService.login(this.user);
+  }
+
+  ngOnInit(): void {
+    this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
   }
 }

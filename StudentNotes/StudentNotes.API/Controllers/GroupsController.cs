@@ -1,7 +1,9 @@
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using StudentNotes.Application.IRepositories;
+using StudentNotes.Application.IServices;
 using StudentNotes.Core.Entities;
+using StudentNotes.Core.Entities.Identity;
 
 namespace StudentNotes.API.Controllers
 {
@@ -13,21 +15,41 @@ namespace StudentNotes.API.Controllers
     {
         private readonly IGenericRepository<Group> _groupsRepository;
 
-        public GroupsController(IGenericRepository<Group> groupsRepository)
+        private readonly IGenericRepository<User> _usersRepository;
+
+        public GroupsController(IGenericRepository<Group> groupsRepository,
+                                IGenericRepository<User> usersRepository)
         {
             this._groupsRepository = groupsRepository;
+            this._usersRepository = usersRepository;
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Group>> GetGroup(int id)
         {
-            var group = await this._groupsRepository.GetOneAsync(id, g => g.Name);
+            var group = await this._groupsRepository.GetOneAsync(id);
             if (group == null)
             {
                 return NotFound();
             }
 
+            var users = await this._usersRepository.GetAllAsync(u => u.Group.Id == group.Id, u => u.Roles);
+            group.Users = users.ToList();
+
             return group;
+        }
+
+
+        [HttpGet("by-invite-code/{inviteCode}")]
+        public async Task<ActionResult<Group>> GetGroup(string inviteCode)
+        {
+            var group = await this._groupsRepository.GetAllAsync(g => g.InviteCode == inviteCode, g => g.Users);
+            if (group.Count() < 1)
+            {
+                return NotFound();
+            }
+
+            return group.FirstOrDefault();
         }
 
         [HttpPost]
@@ -46,8 +68,10 @@ namespace StudentNotes.API.Controllers
                 }
                 else
                 {
+                    group.Users.FirstOrDefault().Roles = new List<Role> { new Role { Id = 1 } };
                     this._groupsRepository.Attach(group);
                     await this._groupsRepository.AddAsync(group);
+
                     return CreatedAtAction("GetGroup", new {id = group.Id}, group);
                 }
             }
@@ -60,7 +84,7 @@ namespace StudentNotes.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (await this._groupsRepository.ExistsAsync(g => g.Name == group.Name))
+                if (await this._groupsRepository.ExistsAsync(g => g.Name == group.Name && g.Id != id))
                 {
                     ModelState.AddModelError(string.Empty, "Group with this name already exists!");
                 }

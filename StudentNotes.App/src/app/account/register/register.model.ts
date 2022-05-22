@@ -3,6 +3,5 @@ export class Register {
     email: string = "";
     password: string = "";
     isLeader: boolean = false;
-    groupName: string = "";
-    inviteCode: string = "";
+    additionalText: string = "";
 }
