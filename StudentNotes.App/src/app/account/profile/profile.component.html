@@ -1,0 +1,25 @@
+<app-navigation-bar></app-navigation-bar>
+<div id="container">
+    <div id="sidebar">
+        <a routerLink="account/profile" class="sidebar_menu active">profile</a>
+        <a class="sidebar_menu">group info</a>
+        <a class="sidebar_menu">about us</a>
+    </div>
+    <div id="content">
+        <div class="profile_wrapper">
+            <img class="profile_avatar" src="{{user.avatar}}"/>
+            <p class="person_name info">{{user.name}}</p>
+            <div class="line"></div>
+            <p class="group_code info">{{user.group.name}}</p>
+        </div>
+        <div class="notification_block">
+            <div class="book_mark"></div>
+            <p class="notification_text">Set and check your<br> deadlines here!</p>
+           <button class="calendar_button" type="button" routerLink="">Check!</button>
+        </div>
+    </div>
+    <div class="footer">            
+        <p class="copy">Copyright 2022-2022 by Students of NURE. All Rights Reserved.</p>
+        <p class="logo_footer">Be Ready!nure</p>
+    </div>
+</div>

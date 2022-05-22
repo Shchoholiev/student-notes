@@ -1,0 +1,359 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap");
+#container {
+  font-family: "Quicksand", sans-serif;
+  font-size: 18px;
+
+  color: #fff;
+  overflow: hidden;
+  margin: 0px;
+}
+#container {
+  display: grid;
+  height: calc(100vh - 70px);
+
+  grid-template-columns: 0.2fr 1fr;
+  grid-template-rows: 1fr 0.02fr;
+  grid-template-areas:
+    "sidebar content"
+    "sidebar footer";
+}
+.menu {
+  grid-area: menu;
+  background-color: #fff;
+  display: grid;
+  grid-template-columns: 0.2fr 0.3fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr;
+  align-items: center;
+  justify-items: center;
+}
+#burger {
+  width: 50px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background-color: #333333;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  justify-items: center;
+}
+.start {
+  align-self: end;
+}
+.center {
+  align-self: center;
+}
+.end {
+  align-self: start;
+}
+.burger_line {
+  width: 90%;
+  height: 20%;
+  background-color: #fff;
+}
+
+.logo {
+  color: #000;
+  font-weight: bold;
+  font-size: 20px;
+}
+.small_avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  background-color: #333333;
+}
+.header_menu {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+.header_menu :visited {
+  color: #000;
+}
+#sidebar {
+  background-color: #ffe141;
+  grid-area: sidebar;
+  display: grid;
+  grid-template-rows: repeat(3, 0.1fr);
+}
+.sidebar_menu {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  line-height: 4;
+  color: #d8bd2f;
+}
+.sidebar_menu:hover:not(.active) {
+  background: #d2ba34;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.active {
+  background: #d2ba34;
+  color: #fff;
+}
+
+#content {
+  grid-area: content;
+  background-color: #333333;
+  display: grid;
+  grid-template-columns: 0.05fr 1fr 0.05fr;
+  grid-template-rows: 0.6fr 1fr;
+}
+.profile_wrapper {
+  width: 100%;
+  height: 70%;
+  background-color: #ffe141;
+  border-radius: 30px;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  align-self: center;
+  display: grid;
+  grid-template-rows: 0.4fr 0.2fr 0.4fr;
+  grid-template-columns: 0.2fr 0.5fr;
+  grid-template-areas:
+    "avatar name"
+    "avatar line"
+    "avatar number";
+}
+.profile_avatar {
+  grid-area: avatar;
+  width: 120px;
+  height: 120px;
+  background-color: #ffffff;
+  border-radius: 100%;
+  align-self: center;
+  justify-self: center;
+}
+.info {
+  align-self: end;
+  color: #000;
+  font-weight: bold;
+  margin: 0px;
+}
+.line {
+  background-color: #333333;
+  width: 100%;
+  height: 8%;
+  border-radius: 30px;
+  align-self: center;
+}
+.group_code {
+  align-self: start;
+}
+.notification_block {
+  width: 35%;
+  height: 85%;
+  background-color: #fff;
+  border-radius: 30px;
+  grid-row-start: 2;
+  grid-column-end: 3;
+  align-self: center;
+  justify-self: center;
+  display: grid;
+  grid-template-rows: 0.3fr 0.4fr 0.3fr;
+  grid-template-columns: 0.75fr;
+  justify-content: center;
+}
+.book_mark {
+  width: 0;
+  height: 0;
+  border-width: 50px 30px 20px;
+  border-style: solid;
+  border-color: #ffe141 #ffe141 transparent;
+  justify-self: end;
+}
+.notification_text {
+  color: #000;
+  font-weight: bold;
+  font-size: 23px;
+  text-align: center;
+  align-self: center;
+}
+.calendar_button {
+  width: 35%;
+  height: 50%;
+  justify-self: center;
+  background-color: #ffe141;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.5s;
+  font-size: 15px;
+  font-weight: bolder;
+  font-family: "Quicksand", sans-serif;
+}
+.calendar_button :hover {
+  opacity: 0.6;
+}
+
+.footer {
+  background-color: #272727;
+  grid-area: footer;
+  display: grid;
+  grid-template-columns: 0.75fr 0.25fr;
+}
+.logo_footer {
+  justify-self: start;
+  color: #000;
+  font-weight: bolder;
+  margin-right: 10%;
+  margin: 0px;
+}
+.copy {
+  font-size: 15px;
+  color: #000;
+  font-weight: bolder;
+  justify-self: center;
+  align-self: center;
+  margin: 0px;
+}
+.open {
+  display: none !important;
+}
+.full {
+  grid-template-areas:
+    "menu menu"
+    "content content"
+    "footer footer" !important;
+}
+.content_transform {
+  transition: right 0.5s ease, left 0.5s ease;
+}
+
+@media (max-width: 1024px) {
+  body {
+    font-size: 16px;
+  }
+  #burger {
+    width: 40px;
+    height: 30px;
+  }
+  .menu {
+    grid-template-columns: 0.2fr 0.4fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr;
+  }
+  .notification_block {
+    width: 45%;
+  }
+}
+@media (max-width: 992px) {
+  body {
+    font-size: 16px;
+  }
+  .logo {
+    font-size: 20px;
+  }
+  .menu {
+    grid-template-columns: 0.4fr 0.8fr 1fr 0.4fr 0.4fr 0.4fr 0.4fr;
+  }
+  #burger {
+    width: 45px;
+    height: 35px;
+  }
+  #container {
+    grid-template-columns: 0.3fr 1fr;
+  }
+  .notification_block {
+    width: 60%;
+  }
+  .profile_wrapper {
+    grid-template-columns: 0.3fr 0.5fr;
+  }
+  .profile_avatar {
+    width: 100px;
+    height: 100px;
+  }
+  .book_mark {
+    border-width: 40px 30px 30px;
+  }
+  .notification_text {
+    font-size: 20px;
+  }
+}
+@media (max-width: 767px) {
+  body {
+    font-size: 14px;
+  }
+
+  .logo {
+    font-size: 16px;
+    justify-self: start;
+  }
+  .menu {
+    grid-template-columns: 0.5fr 1fr 0.1fr 0.5fr 0.5fr 0.5fr;
+  }
+  .small_avatar {
+    display: none;
+  }
+  #burger {
+    width: 40px;
+    height: 30px;
+  }
+  #container {
+    grid-template-columns: 1fr 0fr;
+    grid-template-areas:
+      "content content"
+      "footer footer";
+  }
+  #sidebar {
+    display: none;
+  }
+  .open {
+    background-color: #ffe141;
+    grid-area: sidebar;
+    display: grid !important;
+    grid-template-rows: repeat(3, 0.1fr);
+  }
+  .full {
+    grid-template-areas:
+      "menu menu"
+      "sidebar content"
+      "footer footer" !important;
+  }
+  .content_transform {
+    display: none !important;
+  }
+
+  .profile_wrapper {
+    height: 70%;
+    grid-template-rows: 0.4fr 0.2fr 0.4fr;
+    grid-template-columns: 0.5fr 1fr !important;
+  }
+  #content {
+    grid-template-rows: 0.7fr 1fr;
+  }
+  .profile_avatar {
+    height: 90px;
+    width: 90px;
+  }
+  .line {
+    width: 70%;
+  }
+
+  .notification_block {
+    width: 90%;
+    height: 80%;
+  }
+  .notification_text {
+    font-size: 18px;
+  }
+  .calendar_button {
+    width: 40%;
+    height: 50%;
+  }
+  .book_mark {
+    border-width: 40px 20px 10px;
+  }
+  span {
+    font-size: 15px !important;
+  }
+  .profile_wrapper {
+    grid-template-columns: 0.25fr 0.5fr;
+  }
+  .copy {
+    font-size: 10px;
+  }
+}

@@ -1,0 +1,135 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap");
+.container {
+  background-color: #ffe141;
+  font-family: "Quicksand", sans-serif;
+  font-size: 18px;
+  color: #fff;
+  overflow: hidden;
+}
+.container {
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+  height: 100vh;
+}
+.field {
+  height:70%;
+  width: 60%;
+  border-radius: 30px;
+  background-color: black;
+  align-self: center;
+  justify-self: center;
+  display: grid;
+  grid-template-rows: 0.75fr  0.5fr 0.25fr 0.75fr 0.25fr 0.75fr 0.25fr 0.75fr 0.5fr 1fr ;
+  grid-template-columns:1fr 1fr ;
+  align-items: center;
+  justify-items: center;
+  grid-template-areas: 
+  "header header"
+  "title title"
+"name name"
+"input2 input2"
+"email email"
+"input3 input3"
+"password password"
+"input4 input4"
+"sign  checkbox "
+"footer footer"
+}
+p{
+  margin: 0px;
+}
+.logo {
+  font-weight: bold;
+  padding-left: 5%;
+  padding-top: 5%;
+  font-size: 22px;
+  color:#000;
+}
+.first{
+    grid-area: name;
+    margin-left: 10% !important;
+}
+.second{
+    grid-area: surname;
+    margin-left: 10% !important;
+}
+.third{
+    grid-area: email;
+}
+.forth{
+    grid-area: password;
+}
+
+.email_input{
+    grid-area: input3;
+}
+.password_input{
+    grid-area: input4;
+}
+.title {
+  font-weight: bold;
+  margin-top: 5%;
+  font-size: 20px;
+  grid-area: header;
+}
+.title_small{
+    grid-area: title;
+}
+
+.input_names{
+    color: #fff;
+    justify-self:start;
+    margin-left:5%;
+
+}
+.name_input{
+    grid-area: input2;
+}
+.input_type{
+    border: none;
+    width: 90%;
+    height: 70%;
+    border-radius: 10px;
+    outline: none;
+    font-size: 17px;
+    padding-left: 2%;
+}
+
+
+.submit_button{
+    border: none;
+    width: 50%;
+    height: 80%;
+    border-radius: 5px;
+    grid-area: sign;
+}
+.submit_button :hover{
+    opacity: 0.6;
+    transition: 0.5s;
+}
+span{
+    font-size: 15px;
+}
+.signUp_link{
+   
+    color: #fff
+}
+.signUp_link :visited{
+    color: #fff;
+}
+.signUp_text{
+    grid-area: footer;
+}
+.leader{
+    grid-area: checkbox;
+    display: grid;
+    grid-template-columns: 0.75fr 0.25fr;
+    align-items: center;
+    font-size: 16px;
+    width: 100%;
+}
+.input_checkbox{
+    align-self: end;
+    margin: 0px;
+}
+

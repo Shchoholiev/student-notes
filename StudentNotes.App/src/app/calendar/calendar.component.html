@@ -1,0 +1,45 @@
+<app-navigation-bar></app-navigation-bar>
+<div class="container">
+
+    <!-- Notes -->
+    <div class="notes">
+        <div class="selected-date">{{todaysDate.toDateString()}}</div>
+        <div class="wrapper" id="app">
+            <div *ngFor="let note of dayNotes">
+                <app-text-note *ngIf="note.hasOwnProperty('text')" [note]="$any(note)"></app-text-note>
+                <app-file-note *ngIf="note.hasOwnProperty('files')" [note]="$any(note)"></app-file-note>
+            </div>
+            <div>
+                <button class="add-note" type="button" (click)="openAddTextNoteDialog()">Add text note</button>
+                <button class="add-note" type="button" (click)="openAddFileNoteDialog()">Add file note</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendar -->
+    <div class="calendar">
+        <div class="month">
+            <i class="fas fa-angle-left prev" (click)="previousMonth()"></i>
+            <div class="date">
+                <h1>{{months[date.getMonth()]}}</h1>
+                <p>{{date.getFullYear()}}</p>
+            </div>
+            <i class="fas fa-angle-right next" (click)="nextMonth()"></i>
+        </div>
+        <div class="weekdays">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
+        <div class="days">
+            <div *ngFor="let day of getMonthArray()" (click)="day && chooseDate(day)"
+                [ngClass]="{'today' : day?.toDateString() == chosenDate.toDateString() }">
+                {{day?.getDate()}}
+            </div>
+        </div>
+    </div>
+</div>
