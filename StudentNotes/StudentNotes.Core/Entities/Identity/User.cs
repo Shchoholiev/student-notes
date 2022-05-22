@@ -12,8 +12,8 @@
         
         public string Avatar { get; set; }
         
-        public Group Group { get; set; }
+        public Group? Group { get; set; }
         
-        public List<Role> Roles { get; set; }
+        public List<Role>? Roles { get; set; }
     }
 }
