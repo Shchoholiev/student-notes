@@ -20,6 +20,7 @@ namespace StudentNotes.Infrastructure
             );
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<INotesRepository, NotesRepository>();
 
             return services;
         }

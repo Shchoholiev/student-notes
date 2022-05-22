@@ -2,6 +2,7 @@
 using StudentNotes.Core.Entities.Notes;
 using Microsoft.EntityFrameworkCore;
 using StudentNotes.Infrastructure.ApplicationContext;
+using StudentNotes.Core.Entities;
 
 namespace StudentNotes.Infrastructure.Repositories
 {
@@ -47,10 +48,12 @@ namespace StudentNotes.Infrastructure.Repositories
             await this.SaveAsync();
         }
 
-        public async Task<IEnumerable<NoteBase>> GetMonthNotesAsync(DateOnly month)
+        public async Task<IEnumerable<NoteBase>> GetMonthNotesAsync(DateOnly month, Group group)
         {
             var rawNotes = this._table.AsNoTracking()
-                               .Where(date => date.DeadLine.Year == month.Year && date.DeadLine.Month == month.Month);
+                               .Where(date => date.DeadLine.Year == month.Year 
+                                              && date.DeadLine.Month == month.Month
+                                              && date.Group.Id == group.Id);
             var notes = new List<NoteBase>();
 
             foreach (var note in rawNotes)
@@ -61,10 +64,13 @@ namespace StudentNotes.Infrastructure.Repositories
             return notes;
         }
 
-        public async Task<IEnumerable<NoteBase>> GetDayNotesAsync(DateOnly day)
+        public async Task<IEnumerable<NoteBase>> GetDayNotesAsync(DateOnly day, Group group)
         {
             var rawNotes = this._table.AsNoTracking()
-                               .Where(date => date.DeadLine.Year == day.Year && date.DeadLine.Month == day.Month && date.DeadLine.Day == day.Day);
+                               .Where(date => date.DeadLine.Year == day.Year 
+                                              && date.DeadLine.Month == day.Month 
+                                              && date.DeadLine.Day == day.Day
+                                              && date.Group.Id == group.Id);
             var notes = new List<NoteBase>();
 
             foreach (var note in rawNotes)

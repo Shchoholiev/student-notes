@@ -1,6 +1,8 @@
 ﻿using StudentNotes.Application.IRepositories;
 using Microsoft.AspNetCore.Mvc;
 using StudentNotes.Core.Entities.Notes;
+using StudentNotes.Application.IServices;
+using System.Security.Claims;
 
 namespace StudentNotes.API.Controllers
 {
@@ -11,21 +13,32 @@ namespace StudentNotes.API.Controllers
     {
         private readonly INotesRepository _notesRepository;
 
-        public NotesController(INotesRepository notesRepository)
+        private readonly IUsersService _usersService;
+
+        public NotesController(INotesRepository notesRepository, IUsersService usersService)
         {
             this._notesRepository = notesRepository;
+            this._usersService = usersService;
         }
 
         [HttpGet("day")]
-        public async Task<ActionResult<IEnumerable<NoteBase>>> GetNotesByDay([FromBody] DateOnly day)
+        public async Task<ActionResult<IEnumerable<NoteBase>>> GetNotesByDay([FromQuery] int year, 
+                                                        [FromQuery] int month, [FromQuery] int day)
         {
-            return Ok(await this._notesRepository.GetDayNotesAsync(day));
+            var date = new DateOnly(year, month, day);
+            var email = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            var user = await this._usersService.GetAsync(email);
+            return Ok(await this._notesRepository.GetDayNotesAsync(date, user.Group));
         }
 
         [HttpGet("month")]
-        public async Task<ActionResult<IEnumerable<NoteBase>>> GetNotesByMonth([FromBody] DateOnly month)
+        public async Task<ActionResult<IEnumerable<NoteBase>>> GetNotesByMonth([FromQuery] int year,
+                                                                               [FromQuery] int month)
         {
-            return Ok(await this._notesRepository.GetMonthNotesAsync(month));
+            var date = new DateOnly(year, month, 1);
+            var email = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            var user = await this._usersService.GetAsync(email);
+            return Ok(await this._notesRepository.GetMonthNotesAsync(date, user.Group));
         }
 
         [HttpGet("{id}")]
@@ -44,9 +57,13 @@ namespace StudentNotes.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                 this._notesRepository.Attach(note);
-                 await this._notesRepository.AddAsync(note);
-                 return CreatedAtAction("GetNote", new { id = note.Id }, note);
+                var email = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+                var user = await this._usersService.GetAsync(email);
+                note.Author = user;
+                note.Group = user.Group;
+                this._notesRepository.Attach(note);
+                await this._notesRepository.AddAsync(note);
+                return CreatedAtAction("GetNote", new { id = note.Id }, note);
             }
 
             return BadRequest(ModelState);

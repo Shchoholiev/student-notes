@@ -1,4 +1,5 @@
-﻿using StudentNotes.Core.Entities.Notes;
+﻿using StudentNotes.Core.Entities;
+using StudentNotes.Core.Entities.Notes;
 
 namespace StudentNotes.Application.IRepositories
 {
@@ -14,8 +15,8 @@ namespace StudentNotes.Application.IRepositories
 
         Task<NoteBase> GetNoteAsync(int id);
 
-        Task<IEnumerable<NoteBase>> GetMonthNotesAsync(DateOnly month);
+        Task<IEnumerable<NoteBase>> GetMonthNotesAsync(DateOnly month, Group group);
 
-        Task<IEnumerable<NoteBase>> GetDayNotesAsync(DateOnly day);
+        Task<IEnumerable<NoteBase>> GetDayNotesAsync(DateOnly day, Group group);
     }
 }
