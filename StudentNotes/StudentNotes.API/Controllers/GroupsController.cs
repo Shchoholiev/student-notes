@@ -33,41 +33,64 @@ namespace StudentNotes.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Group group)
         {
-            do
+            if (ModelState.IsValid)
             {
-                group.InviteCode = GenerateInviteCode();
-            } while (await this._groupsRepository.ExistsAsync(g => g.InviteCode == group.InviteCode));
-            
-            this._groupsRepository.Attach(group); 
-            await this._groupsRepository.AddAsync(group); 
-            return CreatedAtAction("GetGroup", new { id = group.Id }, group);
-            
+                do
+                {
+                    group.InviteCode = GenerateInviteCode();
+                } while (await this._groupsRepository.ExistsAsync(g => g.InviteCode == group.InviteCode));
+
+                if (await this._groupsRepository.ExistsAsync(g => g.Name == group.Name))
+                {
+                    ModelState.AddModelError(string.Empty, "Group with this name already exists!");
+                }
+                else
+                {
+                    this._groupsRepository.Attach(group);
+                    await this._groupsRepository.AddAsync(group);
+                    return CreatedAtAction("GetGroup", new {id = group.Id}, group);
+                }
+            }
+
+            return BadRequest(ModelState);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Edit(int id, [FromBody] Group group)
         {
-            do
+            if (ModelState.IsValid)
             {
-                group.InviteCode = GenerateInviteCode();
-            } while (await this._groupsRepository.ExistsAsync(g => g.InviteCode == group.InviteCode));
-            
-            this._groupsRepository.Attach(group);
-            await this._groupsRepository.UpdateAsync(group);
-            return NoContent();
+                if (await this._groupsRepository.ExistsAsync(g => g.Name == group.Name))
+                {
+                    ModelState.AddModelError(string.Empty, "Group with this name already exists!");
+                }
+                else
+                {
+                    this._groupsRepository.Attach(group);
+                    await this._groupsRepository.UpdateAsync(group);
+                    return NoContent();
+                }
+            }
+
+            return BadRequest(ModelState);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("refresh-invite-code/{id}")]
         public async Task<IActionResult> RefreshInviteCode(int id, [FromBody] Group group)
         {
-            do
+            if (ModelState.IsValid)
             {
-                group.InviteCode = GenerateInviteCode();
-            } while (await this._groupsRepository.ExistsAsync(g => g.InviteCode == group.InviteCode));
-            
-            this._groupsRepository.Attach(group);
-            await this._groupsRepository.UpdateAsync(group);
-            return NoContent();
+                do
+                {
+                    group.InviteCode = GenerateInviteCode();
+                } while (await this._groupsRepository.ExistsAsync(g => g.InviteCode == group.InviteCode));
+
+                this._groupsRepository.Attach(group);
+                await this._groupsRepository.UpdateAsync(group);
+                return NoContent();
+            }
+
+            return BadRequest(ModelState);
         }
 
         [HttpDelete("{id}")]
