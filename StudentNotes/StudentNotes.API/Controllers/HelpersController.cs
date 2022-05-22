@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace StudentNotes.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/helpers")]
     public class HelpersController : Controller

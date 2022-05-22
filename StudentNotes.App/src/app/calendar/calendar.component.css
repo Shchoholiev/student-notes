@@ -216,7 +216,7 @@ html {
 }
 
 .today {
-    background-color: #ffe141;
+    background-color: #ffe141!important;
 }
 
 
@@ -283,10 +283,7 @@ html {
 }
 
 #app{
-    display: grid;
-    grid-template-rows: repeat(auto-fill, 75px);
-    padding: 30px 24px;
-    gap: 24px;
+    padding: 10px 25px;
 }
 .selected-date{
     max-width: 100%;
@@ -346,4 +343,8 @@ html {
 
 .add-note:hover{
     background-color: rgba(0, 0, 0, 0.9);
+}
+
+.has-note{
+    background-color: #fff1a0;
 }

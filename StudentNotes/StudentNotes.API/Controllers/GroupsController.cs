@@ -1,4 +1,5 @@
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentNotes.Application.IRepositories;
 using StudentNotes.Application.IServices;
@@ -8,7 +9,7 @@ using StudentNotes.Core.Entities.Identity;
 namespace StudentNotes.API.Controllers
 {
 
-    // [Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/groups")]
     public class GroupsController : Controller

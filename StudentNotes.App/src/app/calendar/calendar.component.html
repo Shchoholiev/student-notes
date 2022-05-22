@@ -5,12 +5,12 @@
     <div class="notes">
         <div class="selected-date">{{todaysDate.toDateString()}}</div>
         <div class="wrapper" id="app">
-            <div *ngFor="let note of dayNotes">
+            <div *ngFor="let note of _notesService.dayNotes">
                 <app-text-note *ngIf="note.hasOwnProperty('text')" [note]="$any(note)"></app-text-note>
                 <app-file-note *ngIf="note.hasOwnProperty('files')" [note]="$any(note)"></app-file-note>
             </div>
-            <div>
-                <button class="add-note" type="button" (click)="openAddTextNoteDialog()">Add text note</button>
+            <div class="mt-4">
+                <button class="add-note me-3" type="button" (click)="openAddTextNoteDialog()">Add text note</button>
                 <button class="add-note" type="button" (click)="openAddFileNoteDialog()">Add file note</button>
             </div>
         </div>
@@ -36,8 +36,8 @@
             <div>Sat</div>
         </div>
         <div class="days">
-            <div *ngFor="let day of getMonthArray()" (click)="day && chooseDate(day)"
-                [ngClass]="{'today' : day?.toDateString() == chosenDate.toDateString() }">
+            <div *ngFor="let day of getMonthArray()" (click)="day && _notesService.chooseDate(day)" id="{{day?.getDate()}}"
+                [ngClass]="{'today' : day?.toDateString() == _notesService.chosenDate.toDateString(), 'has-note' : dayHasNote(day)}">
                 {{day?.getDate()}}
             </div>
         </div>

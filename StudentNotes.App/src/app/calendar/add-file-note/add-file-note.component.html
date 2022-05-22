@@ -1,1 +1,34 @@
-<p>add-file-note works!</p>
+<form class="d-flex flex-column" (ngSubmit)="onSubmit()" #form="ngForm" style="width: 400px;">
+    <h5 class="mx-auto mb-3 text-secondary">Create File Note</h5>
+    <div class="mb-3">
+        <h6 class="text-secondary">Files:</h6>
+        <div class="btn bg-l me-2 mb-2" *ngFor="let f of note.files">{{f.name}}</div>
+        <div class="d-flex flex-row">
+            <input type="text" placeholder="file name" name="name" class="form-control me-1" 
+            [(ngModel)]="createFile.name"/>
+            <input type="file" class="form-control me-1" name="file" (change)="this.fileToLink($event)">
+            <button type="button" class="btn btn-primary mx-auto" style="width: 120px;" 
+                (click)="addFile()">Add File</button>
+        </div>
+    </div>
+
+    <div>
+        <h6 class="text-secondary">Choose Type:</h6>
+        <div class="d-flex flex-wrap mb-2">
+            <div class="btn bg-l me-2 mb-2" *ngFor="let t of types" (click)="setType(t)"
+            [ngClass]="{'bg-primary text-white' : t.name == note.type.name}">{{t.name}}</div>
+        </div>
+        <h6 class="text-secondary">Choose Subject:</h6>
+        <div class="d-flex flex-wrap mb-2">
+            <div class="btn bg-l me-2 mb-2" *ngFor="let s of subjects" (click)="setSubject(s)"
+            [ngClass]="{'bg-primary text-white' : s.name == note.subject.name}">{{s.name}}</div>
+        </div>
+    </div>
+    <div class="d-flex">
+        <button type="submit" class="btn btn-primary mx-auto" [disabled]="form.invalid || !note.type.name 
+                || !note.subject.name || !note.files.length">
+            <i class="fa-solid fa-circle-plus text-white"></i>
+            Create
+        </button>
+    </div>
+</form>

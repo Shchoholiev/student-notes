@@ -7,7 +7,7 @@ using StudentNotes.Core.Entities;
 
 namespace StudentNotes.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/subjects")]
     public class SubjectsController : Controller

@@ -103,7 +103,7 @@ namespace StudentNotes.Infrastructure.DataInitializer
                 Roles = new List<Role> { roleStudent }
             };
 
-            passwordHash = passwordHasher.Hash("breathtaking-misha");
+            passwordHash = passwordHasher.Hash("misha");
 
             var user6 = new User
             {
@@ -243,6 +243,7 @@ namespace StudentNotes.Infrastructure.DataInitializer
                 Subject = physics,
                 DeadLine = new DateTime(2022, 7, 1),
                 Author = user5,
+                Group = groupExample,
                 Type = homework,
                 UsersCompleted = new List<User> { user1, user3, user6 }
             };
@@ -256,6 +257,7 @@ namespace StudentNotes.Infrastructure.DataInitializer
                 },
                 Subject = english,
                 DeadLine = new DateTime(2022, 7, 1),
+                Group = groupExample,
                 Author = headmannExample,
                 Type = helperFile
             };
@@ -278,6 +280,7 @@ namespace StudentNotes.Infrastructure.DataInitializer
                 Subject = math,
                 DeadLine = new DateTime(2022, 6, 21),
                 Author = user7,
+                Group = groupExample,
                 Type = helperFile,
                 UsersCompleted = new List<User> { user9 }
             };
@@ -296,6 +299,7 @@ namespace StudentNotes.Infrastructure.DataInitializer
                 Subject = hypertext,
                 DeadLine = new DateTime(2022, 7, 1),
                 Author = user4,
+                Group = groupExample,
                 Type = lab,
                 UsersCompleted = new List<User> { user3, user7 }
             };
@@ -310,6 +314,7 @@ namespace StudentNotes.Infrastructure.DataInitializer
                 Subject = hypertext,
                 DeadLine = new DateTime(2022, 7, 1),
                 Author = user4,
+                Group = groupExample,
                 Type = lab,
                 UsersCompleted = new List<User> { user3, user7 }
             };
@@ -335,6 +340,7 @@ namespace StudentNotes.Infrastructure.DataInitializer
                 Type = exam,
                 UsersCompleted = new List<User> { user4, user7, user2, headmannExample },
                 DeadLine = new DateTime(2022, 6, 1),
+                Group = groupExample,
                 Text = "Доделать и показать курсовую"
             });
 
@@ -345,6 +351,7 @@ namespace StudentNotes.Infrastructure.DataInitializer
                 Author = user2,
                 Type = exam,
                 DeadLine = new DateTime(2022, 6, 21),
+                Group = groupExample,
                 Text = "Хорошо сдать экзамен по ВМ, сделать идз"
             });
 
@@ -356,6 +363,7 @@ namespace StudentNotes.Infrastructure.DataInitializer
                 Type = homework,
                 UsersCompleted = new List<User> { user1, user4, user9, user2, user3 },
                 DeadLine = new DateTime(2022, 7, 1),
+                Group = groupExample,
                 Text = "Сделать ИРЗ по физике"
             });
 
@@ -367,6 +375,7 @@ namespace StudentNotes.Infrastructure.DataInitializer
                 Type = homework,
                 UsersCompleted = new List<User> { user2, user5, user1, headmannExample },
                 DeadLine = new DateTime(2022, 7, 15),
+                Group = groupExample,
                 Text = "Пройти курсы на коурсере"
             });
 
@@ -378,6 +387,7 @@ namespace StudentNotes.Infrastructure.DataInitializer
                 Type = homework,
                 UsersCompleted = new List<User> { user9 },
                 DeadLine = new DateTime(2022, 5, 29),
+                Group = groupExample,
                 Text = "Сделать ДЗ английский"
             });
 
@@ -389,6 +399,7 @@ namespace StudentNotes.Infrastructure.DataInitializer
                 Type = homework,
                 UsersCompleted = new List<User> { user1, user2, headmannExample },
                 DeadLine = new DateTime(2022, 6, 1),
+                Group = groupExample,
                 Text = "Отправить 3 лабы по ООП"
             });
 

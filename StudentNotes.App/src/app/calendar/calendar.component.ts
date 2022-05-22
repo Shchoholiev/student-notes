@@ -9,6 +9,7 @@ import { AddTextNoteComponent } from './add-text-note/add-text-note.component';
 import { Subject } from '../shared/subject.model';
 import { User } from '../shared/user.model';
 import { Type } from '../shared/type.model';
+import { NotesService } from './notes.service';
 
 @Component({
   selector: 'app-calendar',
@@ -17,47 +18,34 @@ import { Type } from '../shared/type.model';
 })
 export class CalendarComponent implements OnInit {
 
-  public dayNotes: NoteBase[] = [];
-
-  public monthNotes: NoteBase[] = [];
-
   public date: Date = new Date();
 
   public todaysDate: Date = new Date();
 
-  public chosenDate: Date = new Date();
-
-  constructor(private _dialog: MatDialog) { }
+  constructor(private _dialog: MatDialog, public _notesService: NotesService) { }
 
   ngOnInit(): void {
-    var author = new User();
-    author.name = "Петя";
-    var type = new Type();
-    type.name = "Какойто тип";
-    var textNote = new TextNote("Test", "Text text text");
-    var subject = new Subject();
-    subject.name = "ОПИ";
-    textNote.subject = subject;
-    textNote.author = author;
-    textNote.type = type;
-    this.dayNotes.push(textNote);
-    var files = [new File("File", "https://i.pinimg.com/474x/e0/a6/34/e0a634df2123584a23342f48efe0dbba.jpg")];
-    var fileNote = new FileNote(files);
-    fileNote.subject = subject;
-    fileNote.author = author;
-    fileNote.type = type;
-    this.dayNotes.push(fileNote);
+    this._notesService.chooseDate(new Date());
+    this._notesService.updateMonthNotes(new Date());
+  }
+
+  public dayHasNote(day: Date){
+    return this._notesService.monthNotes.find(n => {
+      var d = new Date(n.deadLine);
+      return d.getDate() == day?.getDate();
+    }) ? true : false;
   }
 
   public nextMonth(){
     this.date.setMonth(this.date.getMonth() + 1);
-    //more logic coming
+    this._notesService.updateMonthNotes(this.date);
   }
 
   public previousMonth(){
     this.date.setMonth(this.date.getMonth() - 1);
-    //more logic coming
+    this._notesService.updateMonthNotes(this.date);
   }
+
 
   public getMonthArray(){
     var firstDay = new Date(this.date.getFullYear(), this.date.getMonth(), 1);
@@ -75,11 +63,6 @@ export class CalendarComponent implements OnInit {
     }
 
     return array;
-  }
-
-  public chooseDate(date: Date){
-    this.chosenDate = date;
-    //more logic coming
   }
 
   public openAddTextNoteDialog(){
