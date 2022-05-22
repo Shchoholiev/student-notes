@@ -6,7 +6,7 @@ using System.Security.Claims;
 
 namespace StudentNotes.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/notes")]
     public class NotesController : Controller

@@ -103,7 +103,7 @@ namespace StudentNotes.Infrastructure.DataInitializer
                 Roles = new List<Role> { roleStudent }
             };
 
-            passwordHash = passwordHasher.Hash("breathtaking-misha");
+            passwordHash = passwordHasher.Hash("misha");
 
             var user6 = new User
             {
