@@ -43,7 +43,7 @@ namespace StudentNotes.Infrastructure.Repositories
 
         public async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            var query = this._table.AsNoTracking().Where(predicate);
+            var query = this._table.Where(predicate);
             foreach (var property in includeProperties)
             {
                 query = query.Include(property);

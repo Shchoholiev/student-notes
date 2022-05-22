@@ -8,6 +8,6 @@
       <label class="input_names">password:</label>
       <input type="password" class="input_type password_input" name="password" [(ngModel)]="user.password" required>
       <button class= "submit_button" type="submit" [disabled]="!form.valid"><span>Log in</span></button>
-      <p class="signUp_text">Don't have an account yet?<a class = "signUp_link" > Sign up</a></p>
+      <p class="signUp_text">Don't have an account yet?<a class = "signUp_link" routerLink="/account/register"> Sign up</a></p>
     </form>
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from '../account.service';
 import { Register } from './register.model';
 
 @Component({
@@ -12,13 +13,13 @@ export class RegisterComponent implements OnInit {
 
   public text = "Invite code";
 
-  constructor() { }
+  constructor(private _accountService: AccountService) { }
 
   ngOnInit(): void {
   }
 
-  public onSubmit(){
-
+  onSubmit(){
+    this._accountService.register(this.user);
   }
 
   public check(){

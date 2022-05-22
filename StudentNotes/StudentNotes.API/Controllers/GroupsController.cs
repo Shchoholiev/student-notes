@@ -21,7 +21,7 @@ namespace StudentNotes.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Group>> GetGroup(int id)
         {
-            var group = await this._groupsRepository.GetOneAsync(id, g => g.Name);
+            var group = await this._groupsRepository.GetOneAsync(id, g => g.Headman, g => g.Users);
             if (group == null)
             {
                 return NotFound();

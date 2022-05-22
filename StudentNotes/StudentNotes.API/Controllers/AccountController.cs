@@ -97,9 +97,9 @@ namespace StudentNotes.API.Controllers
             };
             await this._usersService.UpdateAsync(user);
 
-            return new
+            return new TokensModel
             {
-                Token = accessToken,
+                AccessToken = accessToken,
                 RefreshToken = refreshToken
             };
         }
