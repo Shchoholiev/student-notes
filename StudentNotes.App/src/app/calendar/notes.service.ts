@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,5 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class NotesService {
 
-  constructor() { }
+  private readonly baseURL = 'https://localhost:7243/api/notes';
+
+  constructor(private _http: HttpClient) { }
 }

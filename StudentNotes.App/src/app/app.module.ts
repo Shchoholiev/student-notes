@@ -19,6 +19,7 @@ import { RegisterComponent } from './account/register/register.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthInterceptor } from './auth-interceptor';
+import { GroupComponent } from './groups/group/group.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -35,7 +36,8 @@ export function tokenGetter() {
     ProfileComponent,
     NavigationBarComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    GroupComponent
   ],
   imports: [
     BrowserModule,

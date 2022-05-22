@@ -8,8 +8,6 @@ namespace StudentNotes.Core.Entities
 
         public string InviteCode { get; set; }
 
-        public User Headman { get; set; }
-
         public List<User> Users { get; set; }
     }
 }

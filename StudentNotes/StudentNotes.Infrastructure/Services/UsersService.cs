@@ -32,12 +32,13 @@ namespace StudentNotes.Infrastructure.Services
                 Name = userDTO.Name,
                 Email = userDTO.Email,
                 Avatar = "https://educationalportal.blob.core.windows.net/avatars/profile_default.jpg",
-                //Roles = new List<Role> { new Role { Id = 1 } },
+                //Roles = new List<Role> { new Role { Id = 2 } },
             };
 
             try
             {
                 user.PasswordHash = this._passwordHasher.Hash(userDTO.Password);
+                this._usersRepository.Attach(user);
                 await this._usersRepository.AddAsync(user);
             }
             catch (Exception e)

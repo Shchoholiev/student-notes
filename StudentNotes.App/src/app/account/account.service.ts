@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { GroupsService } from '../groups/groups.service';
+import { Group } from '../shared/group.model';
 import { User } from '../shared/user.model';
 import { AuthService } from './auth.service';
 import { Login } from './login/login.model';
@@ -13,7 +15,8 @@ export class AccountService {
 
   private readonly baseURL = 'https://localhost:7243/api/account';
 
-  constructor(private _http: HttpClient, private _authService: AuthService, private _router: Router) { }
+  constructor(private _http: HttpClient, private _authService: AuthService, private _router: Router,
+              private _groupsService: GroupsService) { }
 
   public register(form: Register){
     this._http.post<any>(this.baseURL + '/register', form).subscribe(
@@ -23,6 +26,22 @@ export class AccountService {
           response => {
             var user = response as User;
             this._authService.avatar = user.avatar;
+            if (form.isLeader) {
+              var group = new Group();
+              group.name = form.additionalText;
+              group.users = [user];
+              this._groupsService.create(group).subscribe();
+            }
+            else
+            {
+              this._groupsService.getByInviteCode(form.additionalText).subscribe(
+                response => {
+                  var group = response as Group;
+                  user.group = group;
+                  this.update(user).subscribe();
+                }
+              );
+            }
             this._router.navigate(['']);
           }
         )
@@ -47,5 +66,9 @@ export class AccountService {
 
   public getProfile(){
     return this._http.get(`${this.baseURL}`);
+  }
+
+  public update(user: User){
+    return this._http.put(`${this.baseURL}`, user);
   }
 }

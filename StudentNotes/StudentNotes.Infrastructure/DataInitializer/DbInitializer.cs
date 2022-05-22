@@ -164,7 +164,6 @@ namespace StudentNotes.Infrastructure.DataInitializer
             {
                 Name = "PZPI-21-4",
                 InviteCode = "b3gr90",
-                Headman = headmannExample,
                 Users = new List<User> { headmannExample, user1, user2, user3, user4, user5, user6, user7, user8, user9 }
             };
 

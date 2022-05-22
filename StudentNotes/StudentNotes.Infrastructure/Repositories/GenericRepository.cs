@@ -59,7 +59,7 @@ namespace StudentNotes.Infrastructure.Repositories
 
         public async Task<TEntity> GetOneAsync(int id, params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            var query = this._table.AsNoTracking().Where(entity => entity.Id == id);
+            var query = this._table.Where(entity => entity.Id == id);
             foreach (var property in includeProperties)
             {
                 query = query.Include(property);
