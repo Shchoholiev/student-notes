@@ -1,0 +1,20 @@
+<app-navigation-bar></app-navigation-bar>
+<div class="container">
+    <div class="sidebar">
+        <a routerLink="/account/profile" class="sidebar_menu ">profile</a>
+        <a routerLink="group" class="sidebar_menu active">group info</a>
+        <a routerLink="" class="sidebar_menu">about us</a>
+    </div>
+    <div class="content">
+         <div class="group_mates">
+             <p class="group_number">PZPI-21-4 members | <span style="color: white;">{{group.inviteCode}}</span></p>
+             <div class="members">
+                 <p *ngFor="let user of group.users" class="member" [ngClass]="{'admin' : isHeadman(user) }">{{user.name}}</p>
+             </div>
+         </div>
+    </div>
+    <div class="footer">
+        <p class="copy">Copyright 2022-2022 by Students of NURE. All Rights Reserved.</p>
+        <p class="logo_footer">Be Ready!nure</p>
+    </div>
+</div>
